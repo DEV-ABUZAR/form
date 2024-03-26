@@ -1,0 +1,19 @@
+.inputs{
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+}
+.head{
+  display: contents;
+  justify-content: center;
+  font-family: monospace;
+}
+.logo{
+  display: contents;
+}
+.btn{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+}

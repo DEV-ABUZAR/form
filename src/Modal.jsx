@@ -14,7 +14,7 @@ function AddFieldsModal({ isOpen, onClose, onAddField }) {
   };
 
   return (
-    <Modal show={isOpen} onHide={onClose}>
+    <Modal show={isOpen} onHide={onClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Add New Field</Modal.Title>
       </Modal.Header>
@@ -24,19 +24,17 @@ function AddFieldsModal({ isOpen, onClose, onAddField }) {
           placeholder="Add Field"
           value={label}
           onChange={(e) => setLabel(e.target.value)}
-         style={{border:'none' , borderRadius:'10px' ,display:'flex', margin:'auto' , padding:'5px'}}
+          style={{ border: 'none', borderRadius: '10px', display: 'flex', margin: 'auto', padding: '5px' }}
         />
-       
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
         <Button variant="primary" onClick={() => {
-  handleAddField();
-  onClose();
-}}
->
+          handleAddField();
+          onClose();
+        }}>
           Add Field
         </Button>
       </Modal.Footer>

@@ -357,7 +357,7 @@ function Fileds() {
                         // You can add onChange handler here
                       />
                     </Form.Group>
-                    <img src='./delete.png' width={20} style={{cursor:'pointer'}}
+                    <img src='./trash.png' width={20} style={{cursor:'pointer'}}
                       onClick={() => deleteField(index)}
                     >
                      </img>

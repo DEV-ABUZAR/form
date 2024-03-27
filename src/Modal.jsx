@@ -32,7 +32,11 @@ function AddFieldsModal({ isOpen, onClose, onAddField }) {
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleAddField}>
+        <Button variant="primary" onClick={() => {
+  handleAddField();
+  onClose();
+}}
+>
           Add Field
         </Button>
       </Modal.Footer>

@@ -32,7 +32,7 @@ function Navbar() {
       </Nav.Item>
       <Nav.Item>
         <Nav.Link>
-          <img src='./check-out.png'
+          <img src='./logout.png'
           width={20}
             
           >

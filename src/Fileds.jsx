@@ -379,7 +379,7 @@ function Fileds() {
     </Formik>
     <Row className="mb-3">
   <Col md={{ span: 4, offset: 4 }} className="text-end">
-    <Button type="btin" style={{ backgroundColor:'#2cb1bc' ,border:'none', display:'flex',justifyContent:'center', width:'80%', margin:'auto'}} onClick={handleOpenModal}> Add New Field</Button>
+    <Button type="btin" style={{ backgroundColor:'#2cb1bc' ,border:'none', display:'flex',justifyContent:'center', width:'76%', margin:'auto'}} onClick={handleOpenModal}> Add New Field</Button>
   </Col>
 </Row>
               <AddFieldsModal

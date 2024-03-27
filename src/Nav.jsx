@@ -32,17 +32,12 @@ function Navbar() {
       </Nav.Item>
       <Nav.Item>
         <Nav.Link>
-          <button
-            style={{
-              backgroundColor: "#2cb1bc",
-              color: "white",
-              border: "none",
-              borderRadius: "10px",
-              padding: "2%",
-            }}
+          <img src='./check-out.png'
+          width={20}
+            
           >
-            Logout
-          </button>
+            
+          </img>
         </Nav.Link>
       </Nav.Item>
     </Nav>

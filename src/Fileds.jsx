@@ -7,7 +7,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import Navbar from './Nav';
 import Header from './Header';
-
+import AddFieldsModal from './Modal'
+import { useState ,useEffect } from 'react';
 function Fileds() {
   const schema = yup.object().shape({
     username: yup.string().required('Username is required'),
@@ -28,8 +29,30 @@ function Fileds() {
     chargeOfExtraPersons: yup.number().required('Charge Of Extra Persons is required'),
     remarks: yup.string().required('Remarks is required'),
   });
+  const [fields, setFields] = useState(() => {
+    const storedFields = localStorage.getItem('fields');
+    return storedFields ? JSON.parse(storedFields) : [];
+  });
+  useEffect(() => {
+    // Update localStorage whenever fields change
+    localStorage.setItem('fields', JSON.stringify(fields));
+  }, [fields]);
+  const [showModal, setShowModal] = useState(false);
 
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleAddField = (label, type) => {
+    setFields([...fields, { label, type }]);
+  };
+
+  const deleteField = (index) => {
+    const updatedFields = [...fields];
+    updatedFields.splice(index, 1);
+    setFields(updatedFields);
+  };
   return (
+    <>
     <Formik
       validationSchema={schema}
       onSubmit={console.log}
@@ -322,17 +345,49 @@ function Fileds() {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
-
+          <Row className="mb-3">
+                {fields.map((field, index) => (
+                  <Col md="4" key={index} >
+                    <Form.Group controlId={`customField${index}`}>
+                      <Form.Label>{field.label}</Form.Label>
+                      <Form.Control
+                        type={field.type}
+                        placeholder={`Enter ${field.label}`}
+                        name={`customField${index}`}
+                        // You can add onChange handler here
+                      />
+                    </Form.Group>
+                    <img src='./delete.png' width={20} style={{cursor:'pointer'}}
+                      onClick={() => deleteField(index)}
+                    >
+                     </img>
+                  </Col>
+                ))}
+              </Row>
           <Row className="mb-3">
   <Col md={{ span: 4, offset: 4 }} className="text-end">
-    <Button type="submit" style={{width:' -webkit-fill-available', backgroundColor:'#2cb1bc' ,border:'none'}}>Submit Form</Button>
+    <Button type="submit" style={{width:' -webkit-fill-available', backgroundColor:'#2cb1bc' ,border:'none'}}>Submits Form</Button>
   </Col>
 </Row>
 
+
           </div>
         </Form>
+        
       )}
+      
     </Formik>
+    <Row className="mb-3">
+  <Col md={{ span: 4, offset: 4 }} className="text-end">
+    <Button type="btin" style={{ backgroundColor:'#2cb1bc' ,border:'none', display:'flex',justifyContent:'center', width:'80%', margin:'auto'}} onClick={handleOpenModal}> Add New Field</Button>
+  </Col>
+</Row>
+              <AddFieldsModal
+                isOpen={showModal}
+                onClose={handleCloseModal}
+                onAddField={handleAddField}
+              />
+    </>
   );
 }
 

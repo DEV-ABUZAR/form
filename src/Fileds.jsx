@@ -9,26 +9,29 @@ import Navbar from "./Nav";
 import Header from "./Header";
 import AddFieldsModal from "./Modal";
 import { useState, useEffect } from "react";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
 function Fileds() {
   const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
     password: yup.string().required("Password is required"),
     eventDate: yup.date().required("Event date is required"),
-    checkInDate: yup.date().required("Check In Date is required"),
-    checkOutDate: yup.date().required("Check Out Date is required"),
-    checkInTime: yup.string().required("Check In Time is required"),
-    checkOutTime: yup.string().required("Check Out Time is required"),
-    earlyCheckInTime: yup.string().required("Early Check In Time is required"),
-    lateCheckOutTime: yup.string().required("Late Check Out Time is required"),
-    cutOffDate: yup.date().required("Cut Off Date is required"),
-    cutOffCost: yup.number().required("Cut Off Cost is required"),
-    earlyDepartureCost: yup
+    checkInndate: yup.date().required("Check In Date is required"),
+    checkOutdate: yup.date().required("Check Out Date is required"),
+    checkInntime: yup.string().required("Check In Time is required"),
+    checkOuttime: yup.string().required("Check Out Time is required"),
+    EarlycheckInntime: yup.string().required("Early Check In Time is required"),
+    LatecheckOuttime: yup.string().required("Late Check Out Time is required"),
+    cutofdate: yup.date().required("Cut Off Date is required"),
+    cutofcost: yup.number().required("Cut Off Cost is required"),
+    earlydepcost: yup
       .number()
       .required("Early Departure Cost is required"),
-    roomRate: yup.number().required("Room Rate is required"),
-    earlyCheckInRate: yup.number().required("Early Check In Rate is required"),
-    lateCheckOutFee: yup.number().required("Late Check Out Fee is required"),
-    chargeOfExtraPersons: yup
+    roomrate: yup.number().required("Room Rate is required"),
+    EarlycheckInnrate: yup.number().required("Early Check In Rate is required"),
+    LatecheckOutfee: yup.number().required("Late Check Out Fee is required"),
+    extrapersons: yup
       .number()
       .required("Charge Of Extra Persons is required"),
     remarks: yup.string().required("Remarks is required"),
@@ -59,24 +62,51 @@ function Fileds() {
     <>
       <Formik
         validationSchema={schema}
-        onSubmit={console.log}
+        
+        onSubmit={(values, { setSubmitting }) => {
+         // Inside your Axios request
+axios.post('http://localhost:5000/api/v1/event/', values)
+.then(response => {
+  console.log('Response:', response.data);
+  if (response.status === 201) {
+    // Show toast notification for successful job creation
+    toast.success('Event successfully created!', {
+     
+    });
+  }
+  // You can handle the response here
+})
+.catch(error => {
+  console.error('Error:', error);
+  // Show toast notification for error
+  toast.error('Something went wrong!', {
+    
+  });
+  // You can handle errors here
+})
+.finally(() => {
+  setSubmitting(false);
+});
+
+        }}
+        
         initialValues={{
           username: "",
           password: "",
           eventDate: "",
-          checkInDate: "",
-          checkOutDate: "",
-          checkInTime: "",
-          checkOutTime: "",
-          earlyCheckInTime: "",
-          lateCheckOutTime: "",
-          cutOffDate: "",
-          cutOffCost: "",
-          earlyDepartureCost: "",
-          roomRate: "",
-          earlyCheckInRate: "",
-          lateCheckOutFee: "",
-          chargeOfExtraPersons: "",
+          checkInndate: "",
+          checkOutdate: "",
+          checkInntime: "",
+          checkOuttime: "",
+          EarlycheckInntime: "",
+          LatecheckOuttime: "",
+          cutofdate: "",
+          cutofcost: "",
+          earlydepcost: "",
+          roomrate: "",
+          EarlycheckInnrate: "",
+          LatecheckOutfee: "",
+          extrapersons: "",
           remarks: "",
         }}
       >
@@ -147,55 +177,55 @@ function Fileds() {
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCheckInDate"
+                  controlId="validationFormikcheckInndate"
                 >
                   <Form.Label>Check In Date</Form.Label>
                   <Form.Control
                     type="date"
-                    name="checkInDate"
-                    value={values.checkInDate}
+                    name="checkInndate"
+                    value={values.checkInndate}
                     onChange={handleChange}
-                    isInvalid={!!errors.checkInDate}
+                    isInvalid={!!errors.checkInndate}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.checkInDate}
+                    {errors.checkInndate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCheckOutDate"
+                  controlId="validationFormikcheckOutdate"
                 >
                   <Form.Label>Check Out Date</Form.Label>
                   <Form.Control
                     type="date"
-                    name="checkOutDate"
-                    value={values.checkOutDate}
+                    name="checkOutdate"
+                    value={values.checkOutdate}
                     onChange={handleChange}
-                    isInvalid={!!errors.checkOutDate}
+                    isInvalid={!!errors.checkOutdate}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.checkOutDate}
+                    {errors.checkOutdate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCheckInTime"
+                  controlId="validationFormikcheckInntime"
                 >
                   <Form.Label>Check In Time</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Check In Time"
-                    name="checkInTime"
-                    value={values.checkInTime}
+                    name="checkInntime"
+                    value={values.checkInntime}
                     onChange={handleChange}
-                    isInvalid={!!errors.checkInTime}
+                    isInvalid={!!errors.checkInntime}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.checkInTime}
+                    {errors.checkInntime}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
@@ -204,57 +234,57 @@ function Fileds() {
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCheckOutTime"
+                  controlId="validationFormikcheckOuttime"
                 >
                   <Form.Label>Check Out Time</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Check Out Time"
-                    name="checkOutTime"
-                    value={values.checkOutTime}
+                    name="checkOuttime"
+                    value={values.checkOuttime}
                     onChange={handleChange}
-                    isInvalid={!!errors.checkOutTime}
+                    isInvalid={!!errors.checkOuttime}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.checkOutTime}
+                    {errors.checkOuttime}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikEarlyCheckInTime"
+                  controlId="validationFormikEarlycheckInntime"
                 >
                   <Form.Label>Early Check In Time</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Early Check In Time"
-                    name="earlyCheckInTime"
-                    value={values.earlyCheckInTime}
+                    name="EarlycheckInntime"
+                    value={values.EarlycheckInntime}
                     onChange={handleChange}
-                    isInvalid={!!errors.earlyCheckInTime}
+                    isInvalid={!!errors.EarlycheckInntime}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.earlyCheckInTime}
+                    {errors.EarlycheckInntime}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikLateCheckOutTime"
+                  controlId="validationFormikLatecheckOuttime"
                 >
                   <Form.Label>Late Check Out Time</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Late Check Out Time"
-                    name="lateCheckOutTime"
-                    value={values.lateCheckOutTime}
+                    name="LatecheckOuttime"
+                    value={values.LatecheckOuttime}
                     onChange={handleChange}
-                    isInvalid={!!errors.lateCheckOutTime}
+                    isInvalid={!!errors.LatecheckOuttime}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.lateCheckOutTime}
+                    {errors.LatecheckOuttime}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
@@ -263,56 +293,56 @@ function Fileds() {
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCutOffDate"
+                  controlId="validationFormikcutofdate"
                 >
                   <Form.Label>Cut Off Date</Form.Label>
                   <Form.Control
                     type="date"
-                    name="cutOffDate"
-                    value={values.cutOffDate}
+                    name="cutofdate"
+                    value={values.cutofdate}
                     onChange={handleChange}
-                    isInvalid={!!errors.cutOffDate}
+                    isInvalid={!!errors.cutofdate}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.cutOffDate}
+                    {errors.cutofdate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikCutOffCost"
+                  controlId="validationFormikcutofcost"
                 >
                   <Form.Label>Cut Off Cost</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Cut Off Cost"
-                    name="cutOffCost"
-                    value={values.cutOffCost}
+                    name="cutofcost"
+                    value={values.cutofcost}
                     onChange={handleChange}
-                    isInvalid={!!errors.cutOffCost}
+                    isInvalid={!!errors.cutofcost}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.cutOffCost}
+                    {errors.cutofcost}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikEarlyDepartureCost"
+                  controlId="validationFormikearlydepcost"
                 >
                   <Form.Label>Early Departure Cost</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Early Departure Cost"
-                    name="earlyDepartureCost"
-                    value={values.earlyDepartureCost}
+                    name="earlydepcost"
+                    value={values.earlydepcost}
                     onChange={handleChange}
-                    isInvalid={!!errors.earlyDepartureCost}
+                    isInvalid={!!errors.earlydepcost}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.earlyDepartureCost}
+                    {errors.earlydepcost}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
@@ -322,57 +352,57 @@ function Fileds() {
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikRoomRate"
+                  controlId="validationFormikroomrate"
                 >
                   <Form.Label>Room Rate</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Room Rate"
-                    name="roomRate"
-                    value={values.roomRate}
+                    name="roomrate"
+                    value={values.roomrate}
                     onChange={handleChange}
-                    isInvalid={!!errors.roomRate}
+                    isInvalid={!!errors.roomrate}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.roomRate}
+                    {errors.roomrate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikEarlyCheckInRate"
+                  controlId="validationFormikEarlycheckInnrate"
                 >
                   <Form.Label>Early Check In Rate</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Early Check In Rate"
-                    name="earlyCheckInRate"
-                    value={values.earlyCheckInRate}
+                    name="EarlycheckInnrate"
+                    value={values.EarlycheckInnrate}
                     onChange={handleChange}
-                    isInvalid={!!errors.earlyCheckInRate}
+                    isInvalid={!!errors.EarlycheckInnrate}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.earlyCheckInRate}
+                    {errors.EarlycheckInnrate}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikLateCheckOutFee"
+                  controlId="validationFormikLatecheckOutfee"
                 >
                   <Form.Label>Late Check Out Fee</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Late Check Out Fee"
-                    name="lateCheckOutFee"
-                    value={values.lateCheckOutFee}
+                    name="LatecheckOutfee"
+                    value={values.LatecheckOutfee}
                     onChange={handleChange}
-                    isInvalid={!!errors.lateCheckOutFee}
+                    isInvalid={!!errors.LatecheckOutfee}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.lateCheckOutFee}
+                    {errors.LatecheckOutfee}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
@@ -382,19 +412,19 @@ function Fileds() {
                 <Form.Group
                   as={Col}
                   md="4"
-                  controlId="validationFormikChargeOfExtraPersons"
+                  controlId="validationFormikextrapersons"
                 >
                   <Form.Label>Charge Of Extra Persons</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Charge Of Extra Persons"
-                    name="chargeOfExtraPersons"
-                    value={values.chargeOfExtraPersons}
+                    name="extrapersons"
+                    value={values.extrapersons}
                     onChange={handleChange}
-                    isInvalid={!!errors.chargeOfExtraPersons}
+                    isInvalid={!!errors.extrapersons}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.chargeOfExtraPersons}
+                    {errors.extrapersons}
                   </Form.Control.Feedback>
                 </Form.Group>
 

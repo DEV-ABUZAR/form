@@ -25,7 +25,7 @@ function Navbar() {
       <Link to='/jobs' style={{textDecoration:'none'}}
        onMouseEnter={(e) => e.target.style.color = "#2cb1bc"}
        onMouseLeave={(e) => e.target.style.color = "gray"}>
-      All Jobs
+      All Events
       </Link>
          
         </Nav.Link>
